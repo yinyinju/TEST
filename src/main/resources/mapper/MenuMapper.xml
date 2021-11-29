@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Menu">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
+        <result column="url" jdbcType="VARCHAR" property="ulr"/>
+        <result column="perms" jdbcType="VARCHAR" property="perms"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="order_num" jdbcType="INTEGER" property="orderNum"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
+        <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy"/>
+        <result column="last_update_time" jdbcType="DATE" property="lastUpdateTime"/>
+        <result column="del_flag" jdbcType="INTEGER" property="delFlg"/>
+    </resultMap>
+    <select id="findRolesMenuByRoleId" resultMap="BaseResultMap">
+        SELECT * from tb_menu
+        LEFT JOIN tb_role_menu as ru on ru.menu_id=tb_menu.id
+        WHERE ru.role_id=#{roleId}
+    </select>
+
+    <select id="findRolesMenuByFatherId" resultMap="BaseResultMap">
+        <if test="parentId==0">
+            SELECT *
+            FROM tb_menu
+            LEFT JOIN tb_role_menu as ru on ru.menu_id=tb_menu.id
+            WHERE tb_menu.parent_id=0  AND  ru.role_id=#{roleId}
+        </if>
+        <if test="parentId !=0">
+            select * from tb_menu
+            left join tb_role_menu as ru on ru.menu_id=tb_menu.id
+            where parent_id=#{parentId} and ru.role_id=#{roleId}
+        </if>
+    </select>
+
+</mapper>

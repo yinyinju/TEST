@@ -1,0 +1,6 @@
+projectKey=springboot-test:v1
+serverUrl=http://localhost:9000
+serverVersion=6.7.5.38563
+dashboardUrl=http://localhost:9000/dashboard/index/springboot-test:v1
+ceTaskId=AXv3-kiEcHVnlZ_TonY2
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXv3-kiEcHVnlZ_TonY2
